@@ -25,3 +25,7 @@ class Menu():
         self.pokemon_B.draw_pokemon_stats(self.window)
         self.player_1.draw_player(self.window)
         self.player_2.draw_player(self.window)
+    
+    def select_option(self, pos):
+        self.player_1.select_option(pos)
+        self.player_2.select_option(pos)

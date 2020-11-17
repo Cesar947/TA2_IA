@@ -32,8 +32,8 @@ class Backpropagation:
         self.pesos_ocultos = np.random.uniform(size=(self.n_entradas, self.n_ocultas))
         self.pesos_salida = np.random.uniform(size=(self.n_ocultas, self.n_salidas))
 
-        self.umbral_oculto = [[1, 1]]#np.random.uniform(size=(1 , self.n_ocultas))
-        self.umbral_salida = [[1]]#np.random.uniform(size=(1 , self.n_salidas))
+        self.umbral_oculto = np.random.uniform(size=(1 , self.n_ocultas))#[[1, 1]]
+        self.umbral_salida = np.random.uniform(size=(1 , self.n_salidas))#[[1]]
 
 
     def entrenar(self, entradas_train, salidas_train):
@@ -96,7 +96,7 @@ class Backpropagation:
 
    
 def crear_dataset():
-        pokemon_df = pd.read_csv("./Pokemon_Fight_App/Pokemon_matchups_modified.csv", delimiter=",")
+        pokemon_df = pd.read_csv("./Pokemon_Fight_App/Pokemon_matchups_V2.csv", delimiter=",")
 
         pokemon_df.pop("Pokemon_1")
         pokemon_df.pop("Type_1")
@@ -110,30 +110,30 @@ def crear_dataset():
         train_features = train.copy(deep=True)
         train_features.pop("Winner")
         normalized_df = (train_features-train_features.min())/(train_features.max()-train_features.min())
-        train_features = normalized_df.to_numpy()
+        train_features = normalized_df.to_numpy(dtype=np.float64)
 
         train_labels = train.copy(deep=True)
         train_labels = train_labels[['Winner']]
-        train_labels = train_labels.to_numpy()
+        train_labels = train_labels.to_numpy(dtype=np.float64)
 
         test_features = test.copy(deep=True)
         test_features.pop("Winner")
         normalized_df = (test_features-test_features.min())/(test_features.max()-test_features.min())
-        test_features = normalized_df.to_numpy()
+        test_features = normalized_df.to_numpy(dtype=np.float64)
 
         test_labels = test.copy(deep=True)
         test_labels = test_labels[['Winner']]
-        test_labels = test_labels.to_numpy()
+        test_labels = test_labels.to_numpy(dtype=np.float64)
 
         return train_features, train_labels, test_features, test_labels
 
 
-red = Backpropagation(0.0001, 12, 2, 1, 9000)
+red = Backpropagation(0.001, 12, 2, 1, 10000)
 train_features, train_labels, test_features, test_labels = crear_dataset()
 
 red.inicializarPesos()
 red.entrenar(train_features, train_labels)
 print("Entrenamiento")
 print(f"Iteraciones {red.iteraciones_reales}")
-print(red.test([[5,55,81,60,97,246,4,50,47,50,65,131]]))
+print(red.test(np.array([[12,50,105,125,50,330,3,50,54,54,40,145.5]], dtype=np.float64)))
 

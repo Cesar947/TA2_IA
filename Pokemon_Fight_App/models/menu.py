@@ -21,8 +21,8 @@ class Menu():
         text_select = font_med.render("Elige al ganador", 1, (255,255,255))
         self.window.blit(vs, (510, 400))
         self.window.blit(text_select, (445, 670))
-        self.pokemon_A.draw_pokemon_stats(self.window)
-        self.pokemon_B.draw_pokemon_stats(self.window)
+        self.pokemon_A.draw_pokemon_stats(self.window, "Bulbasaur")
+        self.pokemon_B.draw_pokemon_stats(self.window, "Chikorita")
         self.player_1.draw_player(self.window)
         self.player_2.draw_player(self.window)
     
@@ -31,7 +31,6 @@ class Menu():
         self.player_2.select_option(pos)
         
     def click_option(self, pos):
-        self.player_1.validate_select()
-        self.player_2.validate_select()
         self.player_1.click_option(pos)
         self.player_2.click_option(pos)
+

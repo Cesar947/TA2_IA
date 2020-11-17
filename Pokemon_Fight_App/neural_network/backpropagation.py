@@ -54,8 +54,9 @@ class Backpropagation:
             resultado_capa_salida = self.sigmoide_activacion(activacion_capa_salida)
    
             #Error de la época
-            error = decision(resultado_capa_salida) - salidas_train 
-            accuracy = self.precision(error)
+            error = resultado_capa_salida - salidas_train 
+            resta = decision(resultado_capa_salida) - salidas_train 
+            accuracy = self.precision(resta)
             #costo = self.error_cuadratico(error, n_patrones_entrada)
 
         
@@ -71,11 +72,14 @@ class Backpropagation:
             #Actualización de pesos
             self.pesos_salida += resultado_capa_oculta.T.dot(delta_capa_salida) * self.factorAprendizaje
             self.umbral_salida += np.sum(delta_capa_salida) * self.factorAprendizaje
+            print("Pesos salida")
+            print(self.pesos_salida)
 
             self.pesos_ocultos += entradas_train.T.dot(delta_capa_oculta) * self.factorAprendizaje
             self.umbral_oculto += np.sum(delta_capa_oculta) * self.factorAprendizaje
             self.iteraciones_reales += 1
-
+            print("Pesos ocultos")
+            print(self.pesos_ocultos)
             if(accuracy >= 0.85 or (i == self.iteraciones - 1)):
                 print(f"Iteraciones necesarias {self.iteraciones_reales}")
                 print(f"Accuracy train {accuracy}")
@@ -180,9 +184,10 @@ def seleccionar_enfrentamiento():
     return dict_pokemon, test_label
   
 def decision(prediccion):
-    prediccion[prediccion >= 0.5] = 1
-    prediccion[prediccion <= 0] = 0
-    return prediccion
+    pre = prediccion.copy()
+    pre[pre >= 0.5] = 1
+    pre[pre <= 0] = 0
+    return pre
 
 
     

@@ -118,6 +118,8 @@ def crear_dataset():
         pokemon_df.pop("Pokemon_2")
         pokemon_df.pop("Type_2")
         pokemon_df.pop("Index")
+        pokemon_df.pop("N_Pokemon_1")
+        pokemon_df.pop("N_Pokemon_2")
 
         train = pokemon_df.sample(frac=0.8,random_state=200)
         test = pokemon_df.drop(train.index)
@@ -158,11 +160,15 @@ def seleccionar_enfrentamiento():
     diccionario = row.to_dict()
 
     nombre_pokemon_1 = diccionario["Pokemon_1"][index-1]
+    numero_pokemon_1 = diccionario["N_Pokemon_1"][index-1]
     nombre_pokemon_2 = diccionario["Pokemon_2"][index-1]
+    numero_pokemon_2 = diccionario["N_Pokemon_2"][index-1]
     ganador = diccionario["Winner"][index-1]
     
     row.pop("Pokemon_1")
     row.pop("Pokemon_2")
+    row.pop("N_Pokemon_1")
+    row.pop("N_Pokemon_2")
     row.pop("Winner")
     row.pop("Index")
     row.pop("Type_1")
@@ -173,14 +179,15 @@ def seleccionar_enfrentamiento():
     stats_2 = row_test[0][6:]
 
     dict_pokemon = {
-        "nombre_pokemon_1": nombre_pokemon_1,
-        "nombre_pokemon_2": nombre_pokemon_2,
-        "ganador_real": ganador,
-        "stats_1": stats_1,
-        "stats_2": stats_2,
-        "fila_test": row_test 
+        'nombre_pokemon_1': nombre_pokemon_1,
+        'nombre_pokemon_2': nombre_pokemon_2,
+        'numero_pokemon_1': numero_pokemon_1,
+        'numero_pokemon_2': numero_pokemon_2,
+        'ganador_real': ganador,
+        'stats_1': stats_1,
+        'stats_2': stats_2,
+        'fila_test': row_test 
     }
-    
     return dict_pokemon, test_label
   
 def decision(prediccion):

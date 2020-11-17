@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 class Backpropagation:
     def __init__(self, factorAprendizaje, n_entradas, n_ocultas, n_salidas, iteraciones):
@@ -12,6 +13,7 @@ class Backpropagation:
         self.umbral_salida = None
         self.iteraciones = iteraciones
         self.iteraciones_reales = 0
+        
 
     def sigmoide_activacion(self, x):
         return 1 / (1 + np.exp(-x))
@@ -19,10 +21,10 @@ class Backpropagation:
     def derivada_sigmoide(self, x):
         return x * (1 - x)
 
-    def error_cuadratico(self, x):
+    def error_cuadratico(self, x, n_patrones_entrada):
         power = np.power(x, 2)
         sum = np.sum(power)
-        return sum/2
+        return sum/n_patrones_entrada
 
     def inicializarPesos(self):
         self.pesos_ocultos = np.random.uniform(size=(self.n_entradas, self.n_ocultas))
@@ -31,10 +33,13 @@ class Backpropagation:
         self.umbral_oculto = np.random.uniform(size=(1 , self.n_ocultas))
         self.umbral_salida = np.random.uniform(size=(1 , self.n_salidas))
 
+
     def entrenar(self, entradas_train, salidas_train):
         
         for i in range(self.iteraciones):
-        
+            
+            n_patrones_entrada, _ = entradas_train.shape
+
             #Cálculo en la capa oculta
             activacion_capa_oculta = np.dot(entradas_train, self.pesos_ocultos)
             activacion_capa_oculta += self.umbral_oculto
@@ -47,10 +52,10 @@ class Backpropagation:
    
             #Error de la época
             error = salidas_train - resultado_capa_salida 
-            costo = self.error_cuadratico(error)
+            costo = self.error_cuadratico(error, n_patrones_entrada)
 
-            #Si el erro cuadrático medio
-            if(costo < 0.01):
+            #Si el error cuadrático medio
+            if(costo < 0.2):
                 break
 
             #Cálculo de deltas
@@ -83,21 +88,47 @@ class Backpropagation:
         resultado_capa_salida = self.sigmoide_activacion(activacion_capa_salida)
 
         return resultado_capa_salida
+
    
+def crear_dataset():
+        pokemon_df = pd.read_csv("./Pokemon_Fight_App/Pokemon_matchups_modified.csv", delimiter=",")
+
+        pokemon_df.pop("Pokemon_1")
+        pokemon_df.pop("Type_1")
+        pokemon_df.pop("Pokemon_2")
+        pokemon_df.pop("Type_2")
+        pokemon_df.pop("Index")
+
+        train = pokemon_df.sample(frac=0.8,random_state=200)
+        test = pokemon_df.drop(train.index)
+
+        train_features = train.copy(deep=True)
+        train_features.pop("Winner")
+        normalized_df = (train_features-train_features.min())/(train_features.max()-train_features.min())
+        train_features = normalized_df.to_numpy()
+
+        train_labels = train.copy(deep=True)
+        train_labels = train_labels[['Winner']]
+        train_labels = train_labels.to_numpy()
+
+        test_features = test.copy(deep=True)
+        test_features.pop("Winner")
+        normalized_df = (test_features-test_features.min())/(test_features.max()-test_features.min())
+        test_features = normalized_df.to_numpy()
+
+        test_labels = test.copy(deep=True)
+        test_labels = test_labels[['Winner']]
+        test_labels = test_labels.to_numpy()
+
+        return train_features, train_labels, test_features, test_labels
 
 
-red = Backpropagation(0.01, 12, 4, 1, 6000)
+red = Backpropagation(0.5, 12, 2, 1, 1)
+train_features, train_labels, test_features, test_labels = crear_dataset()
 
-inputs = np.array([
-    [1,45,49,49,45,118,4,80,70,40,145,310.5],
-    [1,60,62,63,60,155,4,70,90,70,40,254.5],
-    [1,80,82,83,80,255,4,60,70,50,65,224.5],
-    [1,80,100,123,80,293,4,65,90,40,75,245]])
-expected_output = np.array([[0], [0], [1], [1]])
-entradas_test = np.array([[2,39,52,43,65,189,4,25,20,20,45,6]])
 red.inicializarPesos()
-red.entrenar(inputs, expected_output)
+red.entrenar(train_features, train_labels)
 print("Entrenamiento")
 print(f"Iteraciones {red.iteraciones_reales}")
-print(red.test(entradas_test))
+print(red.test(test_features))
 

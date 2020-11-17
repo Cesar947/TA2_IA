@@ -21,22 +21,19 @@ class Player(Component):
 
     def draw_player(self, window):
         window.blit(self.asset, (self.x, self.y))
-
+        if self.opt1.get_selected():
+            self.opt2.to_block()
+        if self.opt2.get_selected():
+            self.opt1.to_block()
         #options
-        self.opt1.draw_option(window)  
-        self.opt2.draw_option(window)
-        
-
+        self.opt1.draw_option(window, "Bulbasaur")  
+        self.opt2.draw_option(window, "Chikorita")
+    
     def select_option(self, pos):
         self.opt1.is_over(pos)
         self.opt2.is_over(pos)
 
     def click_option(self, pos):
-        self.opt1.is_selected(pos)
-        self.opt2.is_selected(pos)
-
-    def validate_select(self):
-        if self.opt1.get_selected() == True:
-            self.opt2.set_selected(False)
-        if self.opt2.get_selected() == True:
-            self.opt1.set_selected(False)
+        self.opt1.select(pos)  
+        self.opt2.select(pos)
+        

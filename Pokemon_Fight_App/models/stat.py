@@ -25,5 +25,5 @@ class Stat(Component):
 
     def draw_stat(self, window, text):
         window.blit(self.asset, (self.x, self.y))
-        value = font.render(text + " ptos.", 1, (255,255,255))
+        value = font.render(text + " pts.", 1, (255,255,255))
         window.blit(value, (self.x + 30, self.y + 5))

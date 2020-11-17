@@ -22,8 +22,15 @@ while True:
     window.blit(bg, (0, 0))
     menu.draw_menu()
     pygame.display.update()	
+
     for event in pygame.event.get():
+        pos = pygame.mouse.get_pos()
+
         if event.type == pygame.QUIT:
             sys.exit()
+            
+        if event.type == pygame.MOUSEMOTION:
+            menu.select_option(pos)
+
 
 

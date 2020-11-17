@@ -23,5 +23,10 @@ class Player(Component):
         window.blit(self.asset, (self.x, self.y))
 
         #options
-        self.opt1.draw_option(window)
+        self.opt1.draw_option(window)  
         self.opt2.draw_option(window)
+        
+
+    def select_option(self, pos):
+        self.opt1.is_over(pos)
+        self.opt2.is_over(pos)

@@ -11,8 +11,8 @@ font_med = pygame.font.Font(None, 40)
 class Menu():
     def __init__(self, window):
         self.window = window
-        self.pokemon_A = PokemonStats(120 , 100)
-        self.pokemon_B = PokemonStats(625 , 100)
+        self.pokemon_A = PokemonStats(120 , 100,  "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png")
+        self.pokemon_B = PokemonStats(625 , 100, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/152.png")
         self.player_1 = Player(1, -20, 650)
         self.player_2 = Player(2, 750, 650)
 

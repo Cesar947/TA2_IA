@@ -1,9 +1,13 @@
 import pygame
 from models.component import Component
-from models.option import Option
 from models.stat import Stat
+import urllib.request
+import io
 
 pygame.init()
+
+
+#img = Image.open(file)
 
 p_name = pygame.image.load('./Pokemon_Fight_App/assets/pokemon_name.png')
 img_back = pygame.image.load('./Pokemon_Fight_App/assets/img_back.png')
@@ -11,7 +15,7 @@ img_back = pygame.image.load('./Pokemon_Fight_App/assets/img_back.png')
 font = pygame.font.Font(None, 55)
 
 class PokemonStats(Component):
-    def __init__(self, x, y, width = 500, height = 500):
+    def __init__(self, x, y, url, width = 500, height = 500):
         Component.__init__(self, x, y, width, height)
         self.hp = Stat(1,x+70,y+360)
         self.atq = Stat(2,x+70,y+400)
@@ -19,12 +23,15 @@ class PokemonStats(Component):
         self.vel = Stat(4,x+70,y+480)
         self.name = p_name
         self.back = img_back
+        self.file = io.BytesIO(urllib.request.urlopen(url).read())
+        self.pokemon = pygame.transform.scale(pygame.image.load(self.file),(220,220))
         
 
 
     def draw_pokemon_stats(self, window, text):
         window.blit(self.back, (self.x, self.y))
         window.blit(self.name, (self.x, self.y+280))
+        window.blit(self.pokemon, (self.x+70, self.y + 20))
         #Pokemon name
         name_text = font.render(text, 1, (255,255,255))
         window.blit(name_text, (self.x + 100, self.y + 293))

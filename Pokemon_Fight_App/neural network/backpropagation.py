@@ -135,5 +135,5 @@ red.inicializarPesos()
 red.entrenar(train_features, train_labels)
 print("Entrenamiento")
 print(f"Iteraciones {red.iteraciones_reales}")
-print(red.test([[3,59,63,80,58,178,4,57,82,95,36,207]]))
+print(red.test([[5,55,81,60,97,246,4,50,47,50,65,131]]))
 

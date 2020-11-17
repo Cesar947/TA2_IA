@@ -29,3 +29,9 @@ class Menu():
     def select_option(self, pos):
         self.player_1.select_option(pos)
         self.player_2.select_option(pos)
+        
+    def click_option(self, pos):
+        self.player_1.validate_select()
+        self.player_2.validate_select()
+        self.player_1.click_option(pos)
+        self.player_2.click_option(pos)

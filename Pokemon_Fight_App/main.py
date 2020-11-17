@@ -28,6 +28,9 @@ while True:
 
         if event.type == pygame.QUIT:
             sys.exit()
+
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            menu.click_option(pos)    
             
         if event.type == pygame.MOUSEMOTION:
             menu.select_option(pos)

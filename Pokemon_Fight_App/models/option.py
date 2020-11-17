@@ -15,20 +15,37 @@ class Option(Component):
             self.asset = opt1
         else:
             self.asset = opt2
+        self.selected = False
 
     def draw_option(self, window):           
         window.blit(self.asset, (self.x, self.y))
 
     def is_over(self, pos):
+        if self.selected == False:
+            if pos[0] > self.x and pos[0] < self.x + self.width:
+                if pos[1] > self.y and pos[1] <self.y + self.height:
+                    if self.i == 1:
+                        self.asset = opt1_sel
+                    else:
+                        self.asset = opt2_sel
+                    return True
+            if self.i == 1:
+                self.asset = opt1
+            else:
+                self.asset = opt2
+            return False
+    
+    def is_selected(self, pos):
         if pos[0] > self.x and pos[0] < self.x + self.width:
-            if pos[1] > self.y and pos[1] <self.y + self.height:
+            if pos[1] > self.y and pos[1] <self.y + self.height:    
                 if self.i == 1:
                     self.asset = opt1_sel
                 else:
                     self.asset = opt2_sel
-                return True
-        if self.i == 1:
-            self.asset = opt1
-        else:
-            self.asset = opt2
-        return False
+                self.selected = True
+
+    def get_selected(self):
+        return self.selected
+    
+    def set_selected(self, state):
+        self.selected = state

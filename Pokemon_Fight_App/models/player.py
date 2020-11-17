@@ -30,3 +30,13 @@ class Player(Component):
     def select_option(self, pos):
         self.opt1.is_over(pos)
         self.opt2.is_over(pos)
+
+    def click_option(self, pos):
+        self.opt1.is_selected(pos)
+        self.opt2.is_selected(pos)
+
+    def validate_select(self):
+        if self.opt1.get_selected() == True:
+            self.opt2.set_selected(False)
+        if self.opt2.get_selected() == True:
+            self.opt1.set_selected(False)

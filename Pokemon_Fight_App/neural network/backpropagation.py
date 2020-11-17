@@ -26,14 +26,14 @@ class Backpropagation:
     def error_cuadratico(self, x, n_patrones_entrada):
         power = np.power(x, 2)
         sum = np.sum(power)
-        return sum/n_patrones_entrada
+        return sum/2
 
     def inicializarPesos(self):
         self.pesos_ocultos = np.random.uniform(size=(self.n_entradas, self.n_ocultas))
         self.pesos_salida = np.random.uniform(size=(self.n_ocultas, self.n_salidas))
 
-        self.umbral_oculto = np.random.uniform(size=(1 , self.n_ocultas))
-        self.umbral_salida = np.random.uniform(size=(1 , self.n_salidas))
+        self.umbral_oculto = [[1, 1]]#np.random.uniform(size=(1 , self.n_ocultas))
+        self.umbral_salida = [[1]]#np.random.uniform(size=(1 , self.n_salidas))
 
 
     def entrenar(self, entradas_train, salidas_train):
@@ -56,10 +56,7 @@ class Backpropagation:
             error = salidas_train - resultado_capa_salida 
             costo = self.error_cuadratico(error, n_patrones_entrada)
 
-            #Si el error cuadrático medio
-            if(costo < 0.2):
-                break
-
+        
             #Cálculo de deltas
 
             ### Delta para la capa de salida
@@ -76,6 +73,12 @@ class Backpropagation:
             self.pesos_ocultos += entradas_train.T.dot(delta_capa_oculta) * self.factorAprendizaje
             self.umbral_oculto += np.sum(delta_capa_oculta) * self.factorAprendizaje
             self.iteraciones_reales += 1
+
+            #Si el error cuadrático medio
+            if(costo <= 0.01 or (i == self.iteraciones - 1)):
+                print(resultado_capa_salida)
+                break
+                
 
 
     def test(self, entradas_test):
@@ -125,12 +128,12 @@ def crear_dataset():
         return train_features, train_labels, test_features, test_labels
 
 
-red = Backpropagation(0.5, 12, 2, 1, 1)
+red = Backpropagation(0.0001, 12, 2, 1, 9000)
 train_features, train_labels, test_features, test_labels = crear_dataset()
 
 red.inicializarPesos()
 red.entrenar(train_features, train_labels)
 print("Entrenamiento")
 print(f"Iteraciones {red.iteraciones_reales}")
-print(red.test(test_features))
+print(red.test([[3,59,63,80,58,178,4,57,82,95,36,207]]))
 

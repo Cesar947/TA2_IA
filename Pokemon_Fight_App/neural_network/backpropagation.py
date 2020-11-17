@@ -38,11 +38,10 @@ class Backpropagation:
 
 
     def entrenar(self, entradas_train, salidas_train):
-        
+        n_patrones_entrada, _ = entradas_train.shape
+
         for i in range(self.iteraciones):
             
-            n_patrones_entrada, _ = entradas_train.shape
-
             #Cálculo en la capa oculta
             activacion_capa_oculta = np.dot(entradas_train, self.pesos_ocultos)
             activacion_capa_oculta += self.umbral_oculto
@@ -54,7 +53,7 @@ class Backpropagation:
             resultado_capa_salida = self.sigmoide_activacion(activacion_capa_salida)
    
             #Error de la época
-            error = resultado_capa_salida - salidas_train 
+            error = salidas_train - resultado_capa_salida
             resta = decision(resultado_capa_salida) - salidas_train 
             accuracy = self.precision(resta)
             #costo = self.error_cuadratico(error, n_patrones_entrada)
@@ -72,7 +71,6 @@ class Backpropagation:
             #Actualización de pesos
             self.pesos_salida += resultado_capa_oculta.T.dot(delta_capa_salida) * self.factorAprendizaje
             self.umbral_salida += np.sum(delta_capa_salida) * self.factorAprendizaje
-
             self.pesos_ocultos += entradas_train.T.dot(delta_capa_oculta) * self.factorAprendizaje
             self.umbral_oculto += np.sum(delta_capa_oculta) * self.factorAprendizaje
             self.iteraciones_reales += 1
@@ -189,13 +187,13 @@ def seleccionar_enfrentamiento():
 def decision(prediccion):
     pre = prediccion.copy()
     pre[pre >= 0.5] = 1
-    pre[pre <= 0] = 0
+    pre[pre <= 0.5] = 0
     return pre
 
 
     
 
-red = Backpropagation(0.05, 12, 4, 1, 10000)
+red = Backpropagation(0.001, 12, 2, 1, 10000)
 train_features, train_labels, test_features, test_labels = crear_dataset()
 enfrentamiento, test_label = seleccionar_enfrentamiento()
 
@@ -204,7 +202,8 @@ red.entrenar(train_features, train_labels)
 red.predecir(test_features, test_labels)
 
 print("Precision de enfrentamiento")
+print(f"Ganador verdadero: {enfrentamiento['ganador_real']}")
 prediccion = red.predecir(enfrentamiento['fila_test'], test_label)
-print(f"Prediccion: {prediccion}")
+print(f"Prediccion: {1 if prediccion[0][0] >= 0.5 else 0}")
 
 

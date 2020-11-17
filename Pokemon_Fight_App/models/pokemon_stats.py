@@ -17,7 +17,9 @@ font = pygame.font.Font(None, 35)
 HP, ATTACK, DEFENSE, SPEED = 1, 2, 3, 4
 
 class PokemonStats(Component):
+
     def __init__(self, x, y, stats_text, url, width = 500, height = 500):
+
         Component.__init__(self, x, y, width, height)
         self.hp = Stat(1,x+70,y+360)
         self.atq = Stat(2,x+70,y+400)
@@ -25,6 +27,7 @@ class PokemonStats(Component):
         self.vel = Stat(4,x+70,y+480)
         self.name = p_name
         self.back = img_back
+
         self.file = io.BytesIO(urllib.request.urlopen(url).read())
         self.pokemon = pygame.transform.scale(pygame.image.load(self.file),(220,220))
         self.stats = stats_text
@@ -43,5 +46,6 @@ class PokemonStats(Component):
         self.atq.draw_stat(window, str(self.stats[ATTACK]))
         self.defs.draw_stat(window, str(self.stats[DEFENSE]))
         self.vel.draw_stat(window, str(self.stats[SPEED]))
+
 
         #window.blit(self.asset, (self.x, self.y))

@@ -1,5 +1,6 @@
   
 import pygame
+
 from models.pokemon_stats import PokemonStats
 from models.player import Player
 from neural_network.backpropagation import seleccionar_enfrentamiento
@@ -11,6 +12,7 @@ numero_pokemon_1 = diccionario_pokemon['numero_pokemon_1']
 numero_pokemon_2 = diccionario_pokemon['numero_pokemon_2']
 stats_pokemon_1 = diccionario_pokemon['stats_1']
 stats_pokemon_2 = diccionario_pokemon['stats_2']
+
 pygame.init()
 
 font = pygame.font.Font(None, 50)
@@ -19,6 +21,7 @@ font_med = pygame.font.Font(None, 40)
 class Menu():
     def __init__(self, window):
         self.window = window
+
         self.pokemon_A = PokemonStats(120 , 100, stats_pokemon_1, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/"+ str(numero_pokemon_1) +".png")
         self.pokemon_B = PokemonStats(625 , 100, stats_pokemon_2,"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/"+ str(numero_pokemon_2) +".png")
 

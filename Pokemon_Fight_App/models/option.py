@@ -69,3 +69,11 @@ class Option(Component):
 
     def get_selected(self):
         return self.selected
+
+    def ia_options(self):
+        if self.i == 1:
+            self.asset = opt1_sel
+            self.color = (255,255,255)
+        elif self.i == 2:
+            self.asset = opt2_sel
+            self.color = (255,255,255)

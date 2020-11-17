@@ -2,7 +2,7 @@ import pygame
 from pygame.display import set_palette
 from models.component import Component
 
-opt1 = pygame.image.load('./Pokemon_Fight_App/assets/option_1.png')
+opt1 = pygame.image.load('Pokemon_Fight_App/assets/option_1.png')
 opt2 = pygame.image.load('./Pokemon_Fight_App/assets/option_2.png')
 opt1_sel = pygame.image.load('./Pokemon_Fight_App/assets/option1_selected.png')
 opt2_sel = pygame.image.load('./Pokemon_Fight_App/assets/option2_selected.png')

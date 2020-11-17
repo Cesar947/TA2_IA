@@ -1,4 +1,4 @@
-﻿Pokemon_1 ,Type_1,Type_number_1,Hp_1,Attack_1,Defense_1,Speed_1,Total_Points_1,Pokemon_2 ,Type_2,Type_number_2,Hp_2,Attack_2,Defense_2,Speed_2,Total_Points_2,Winner,Index
+﻿Pokemon_1,Type_1,Type_number_1,Hp_1,Attack_1,Defense_1,Speed_1,Total_Points_1,Pokemon_2,Type_2,Type_number_2,Hp_2,Attack_2,Defense_2,Speed_2,Total_Points_2,Winner,Index
 Bulbasaur,Grass,1,45,49,49,45,118,Accelgor,Bug,4,80,70,40,145,310.5,0,1
 Ivysaur,Grass,1,60,62,63,60,155,Ariados,Bug,4,70,90,70,40,254.5,0,2
 Venusaur,Grass,1,80,82,83,80,255,Beautifly,Bug,4,60,70,50,65,224.5,1,3

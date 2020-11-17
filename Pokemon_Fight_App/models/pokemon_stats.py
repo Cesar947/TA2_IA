@@ -25,7 +25,7 @@ class PokemonStats(Component):
         self.back = img_back
         self.file = io.BytesIO(urllib.request.urlopen(url).read())
         self.pokemon = pygame.transform.scale(pygame.image.load(self.file),(220,220))
-        
+
 
 
     def draw_pokemon_stats(self, window, text):

@@ -2,7 +2,11 @@
 import pygame
 from models.pokemon_stats import PokemonStats
 from models.player import Player
+from backpropagation import seleccionar_enfrentamiento
 
+diccionario_pokemon = seleccionar_enfrentamiento()
+stats_pokemon_1 = diccionario_pokemon['stats_1']
+stats_pokemon_2
 pygame.init()
 
 font = pygame.font.Font(None, 50)
@@ -13,6 +17,7 @@ class Menu():
         self.window = window
         self.pokemon_A = PokemonStats(120 , 100,  "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png")
         self.pokemon_B = PokemonStats(625 , 100, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/152.png")
+
         self.player_1 = Player(1, -20, 650)
         self.player_2 = Player(2, 750, 650)
 

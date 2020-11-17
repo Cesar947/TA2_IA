@@ -72,14 +72,10 @@ class Backpropagation:
             #Actualización de pesos
             self.pesos_salida += resultado_capa_oculta.T.dot(delta_capa_salida) * self.factorAprendizaje
             self.umbral_salida += np.sum(delta_capa_salida) * self.factorAprendizaje
-            print("Pesos salida")
-            print(self.pesos_salida)
 
             self.pesos_ocultos += entradas_train.T.dot(delta_capa_oculta) * self.factorAprendizaje
             self.umbral_oculto += np.sum(delta_capa_oculta) * self.factorAprendizaje
             self.iteraciones_reales += 1
-            print("Pesos ocultos")
-            print(self.pesos_ocultos)
             if(accuracy >= 0.85 or (i == self.iteraciones - 1)):
                 print(f"Iteraciones necesarias {self.iteraciones_reales}")
                 print(f"Accuracy train {accuracy}")

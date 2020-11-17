@@ -12,9 +12,9 @@ pygame.init()
 p_name = pygame.image.load('./Pokemon_Fight_App/assets/pokemon_name.png')
 img_back = pygame.image.load('./Pokemon_Fight_App/assets/img_back.png')
 
-font = pygame.font.Font(None, 55)
+font = pygame.font.Font(None, 35)
 
-HP, ATTACK, DEFENSE, SPEED = 1 , 2, 3, 4
+HP, ATTACK, DEFENSE, SPEED = 1, 2, 3, 4
 
 class PokemonStats(Component):
     def __init__(self, x, y, stats_text, url, width = 500, height = 500):
@@ -37,7 +37,7 @@ class PokemonStats(Component):
         window.blit(self.pokemon, (self.x+70, self.y + 20))
         #Pokemon name
         name_text = font.render(text, 1, (255,255,255))
-        window.blit(name_text, (self.x + 100, self.y + 293))
+        window.blit(name_text, (self.x + 100, self.y + 300))
         #Pokemon stats
         self.hp.draw_stat(window, str(self.stats[HP]))
         self.atq.draw_stat(window, str(self.stats[ATTACK]))

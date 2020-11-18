@@ -9,7 +9,7 @@ pygame.init()
 n_player = pygame.image.load('./Pokemon_Fight_App/assets/name_player.png')
 n_ia = pygame.image.load('./Pokemon_Fight_App/assets/name_ia.png')
 
-font = pygame.font.Font(None, 50)
+font = pygame.font.Font(None, 40)
 
 puntos_player = 0
 puntos_ia = 0
@@ -42,11 +42,11 @@ class Player(Component):
         #points
         if self.i == 1:
             global puntos_player
-            points = font.render(str(puntos_player), 1, (255,255,255))
+            points = font.render("Puntos: " + str(puntos_player), 1, (0,0,0))
         if self.i == 2:
             global puntos_ia
-            points = font.render(str(puntos_ia), 1, (255,255,255))
-        window.blit(points, (self.x + 60, self.y + 20))
+            points = font.render("Puntos: "+ str(puntos_ia), 1, (0,0,0))
+        window.blit(points, (self.x + 60, self.y + 30))
         
     def select_option(self, pos):
         self.opt1.is_over(pos)
@@ -84,3 +84,11 @@ class Player(Component):
     def reset(self):
         self.opt1.deselect()
         self.opt2.deselect()
+    
+    def get_puntos(self):
+        if self.i == 1:
+            global puntos_player
+            return puntos_player
+        if self.i == 2:
+            global puntos_ia
+            return puntos_ia 

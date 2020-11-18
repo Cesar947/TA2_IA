@@ -2,7 +2,7 @@ import pygame
 import sys
 import time 	
 import random
-from models.menu import Menu 	
+from models.juego import Juego 	
 
 #initiate pygame
 pygame.init()	
@@ -13,16 +13,18 @@ pygame.display.set_caption("Pokemon Quiz")		#set window name
 background_color = (247, 36, 89)
 bg = pygame.image.load('./Pokemon_Fight_App/assets/pokemon_pattern.png')
 
-menu = Menu(window)
+juego = Juego(window)
 
 #game starts
 while True:
-    if menu.ronda_terminada():
-        menu.ganador()
-        menu = Menu(window)
+    if juego.ronda_terminada():
+        juego.ganador()
+        juego = Juego(window)
     window.fill(background_color)
     window.blit(bg, (0, 0))
-    menu.draw_menu()
+    juego.juega_ia()
+    juego.draw_menu()
+    juego.terminar_juego()
     pygame.display.update()	
 
     for event in pygame.event.get():
@@ -32,10 +34,10 @@ while True:
             sys.exit()
 
         if event.type == pygame.MOUSEBUTTONDOWN:
-            menu.click_option(pos)    
+            juego.click_option(pos)    
             
         if event.type == pygame.MOUSEMOTION:
-            menu.select_option(pos)
+            juego.select_option(pos)
 
 
 

@@ -15,9 +15,11 @@ bg = pygame.image.load('./Pokemon_Fight_App/assets/pokemon_pattern.png')
 
 menu = Menu(window)
 
-
 #game starts
 while True:
+    if menu.ronda_terminada():
+        menu.ganador()
+        menu = Menu(window)
     window.fill(background_color)
     window.blit(bg, (0, 0))
     menu.draw_menu()
